@@ -77,17 +77,14 @@ while True:
                     print("Type pet's species:")
                     pet['species'] = input()
                     print("Type birth year:")
-                    pet['birth_year'] = input()
+                    pet['birth_year'] = int(input())
         case '4':
             print('Delete my pet.')
             print('Enter a pet ID to manage the selected pet.')
             del_id = input()
             for pet in pets:
                 if del_id == str(pet['id']):
-                    print(f'{pet['id']}. '
-                          f'Delete: Pet {pet['species']}'
-                          f'{pet['name']}'
-                          f'{pet['birth_year']}')
+                    print(f'{pet['id']}. Deleting pet: {pet['species']} {pet['name']} {pet['birth_year']}')
                     pets.remove(pet)
         case '5':
             print('Close a program.')
