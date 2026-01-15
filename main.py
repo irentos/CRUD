@@ -1,91 +1,20 @@
-import datetime
+from pets_CRUD import *
 
-pets = [
-        {
-            'id': 1,
-            'name': 'Aurora',
-            'species': 'Dog',
-            'birth_year': 2020
-        },
-        {
-            'id': 2,
-            'name': 'Marshall',
-            'species': 'Dog',
-            'birth_year': 2021
-        },
-        {
-            'id': 4,
-            'name': 'Nibbles',
-            'species': 'cat',
-            'birth_year': 2076
-        },
-        {
-            'id': 5,
-            'name': 'Roach',
-            'species': 'horse',
-            'birth_year': 1272
-        }
-    ]
+pets = load_default_data()
 id_counter = 5
 now_year = datetime.date.today().year # making this year
 while True:
-    print('---------------------------------------------------------')
-    print('1. Show all pets.')
-    print('2. Add new pet.')
-    print('3. Manage my pets.')
-    print('4. Delete pet.')
-    print('5. Close a program.')
-    print('-------------------------Select:-------------------------')
+    print_info()
     answer = input()
     match answer:
         case '1':
-            for pet in pets:
-                age = now_year - pet['birth_year']
-                print(f'{pet['id']}. '
-                      f'Pet species: {pet['species']}. '
-                      f'Name: {pet['name']}. '
-                      f'Age: {age}.') # how to make age?
+            print_all_pets(pets, now_year)
         case '2':
-            print('Add pet:')
-            print('Type name:')
-            name = input()
-            print("Type pet's species:")
-            species = input()
-            print("Type birth year:")
-            birth_year = int(input()) # MUST BE INT FOR NUM = NUM. if without int: text - text
-            id_counter += 1
-            pet = {
-                'id': id_counter,
-                'name': name,
-                'species': species,
-                'birth_year': birth_year
-            }
-            pets.append(pet)
+            id_counter = pet_adding(pets, id_counter)
         case '3':
-            print('My pets managing')
-            print('Enter a pet ID to manage the selected pet.')
-            edit_id = input()
-            for pet in pets:
-                age = now_year - pet['birth_year']
-                if edit_id == str(pet['id']):
-                    print(f'{pet['id']}. '
-                          f'Pet species: {pet['species']}. '
-                          f'Name: {pet['name']}. '
-                          f'Age: {age}.')
-                    print('Type name:')
-                    pet['name'] = input()
-                    print("Type pet's species:")
-                    pet['species'] = input()
-                    print("Type birth year:")
-                    pet['birth_year'] = int(input())
+           pets_managing(pets, now_year)
         case '4':
-            print('Delete my pet.')
-            print('Enter a pet ID to manage the selected pet.')
-            del_id = input()
-            for pet in pets:
-                if del_id == str(pet['id']):
-                    print(f'{pet['id']}. Deleting pet: {pet['species']} {pet['name']} {pet['birth_year']}')
-                    pets.remove(pet)
+            pets_remove(pets)
         case '5':
             print('Close a program.')
             break
