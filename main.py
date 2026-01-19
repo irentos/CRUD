@@ -1,18 +1,17 @@
-from pets_CRUD import *
+from file_CRUD import *
 
-pets = load_default_data()
+pets = load_pets()
 id_counter = 5
-now_year = datetime.date.today().year # making this year
 while True:
     print_info()
     answer = input()
     match answer:
         case '1':
-            print_all_pets(pets, now_year)
+            print_pets(pets)
         case '2':
             id_counter = pet_adding(pets, id_counter)
         case '3':
-           pets_managing(pets, now_year)
+           pets_managing(pets)
         case '4':
             pets_remove(pets)
         case '5':
