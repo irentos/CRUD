@@ -1,15 +1,17 @@
 import csv
-
+from list_CRUD import id_counter
 headers = ['id', 'name', 'species', 'birth_year']
 def load_pets():
     with open('pets_data.csv',mode='r', encoding='utf-8') as file:
         return list(csv.DictReader(file))
+
 def save_pets(pets):
     with open("pets_data.csv",mode="w", newline='', encoding="utf-8") as file:
         writer = csv.DictWriter(file,fieldnames=headers)
         writer.writeheader()
         writer.writerows(pets)
-
+pets = load_pets()
+id_counter = int(pets[-1]['id']) if len(pets) > 0 else 1
 def print_info():
     print('---------------------------------------------------------')
     print('1. Show all pets.')
@@ -19,11 +21,12 @@ def print_info():
     print('5. Close a program.')
     print('-------------------------Select:-------------------------')
 
-def print_pets(pets):
+def print_pets():
     for pet in pets:
-        print(f'{pet['id']}. Name: {pet['name']}. Pet species: {pet['species']}. Birth year: {pet['birth_year']}.')
+        print(f'{pet['id']}. Name: {pet['name']}. Pet species: {pet['species']}. '
+              f'Birth year: {pet['birth_year']}.')
 
-def pet_adding(pets, id_counter):
+def pet_adding():
     print('Adding new pet.')
     print('Type name:')
     name = input()
@@ -31,7 +34,8 @@ def pet_adding(pets, id_counter):
     species = input()
     print("Type birth year:")
     birth_year = int(input())  # MUST BE INT FOR NUM = NUM. if without int: text - text
-    id_counter = int(pets[-1]['id']) + 1 if len(pets) > 0 else 1
+    global id_counter  # global - reference for counting
+    id_counter += 1
     pet = {
         'id': id_counter,
         'name': name,
@@ -40,15 +44,15 @@ def pet_adding(pets, id_counter):
     }
     pets.append(pet)
     save_pets(pets)
-    return id_counter
 
-def pets_managing(pets):
+def pets_managing():
     print('My pets managing')
     print('Enter a pet ID to manage the selected pet.')
     edit_id = input()
     for pet in pets:
         if edit_id == str(pet['id']):
-            print(f'{pet['id']}. Name: {pet['name']}. Pet species: {pet['species']}. Birth year: {pet['birth_year']}.')
+            print(f'{pet['id']}. Name: {pet['name']}. Pet species: {pet['species']}. '
+                  f'Birth year: {pet['birth_year']}.')
             print('Type name:')
             pet['name'] = input()
             print("Type pet's species:")
@@ -57,7 +61,7 @@ def pets_managing(pets):
             pet['birth_year'] = int(input())
     save_pets(pets)
 
-def pets_remove(pets):
+def pets_remove():
     print('Delete my pet.')
     print('Enter a pet ID to manage the selected pet.')
     del_id = input()

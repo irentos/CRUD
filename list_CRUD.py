@@ -1,4 +1,6 @@
 from list_demo_data import load_pets
+id_counter = 6
+pets = load_pets()
 
 def print_info():
     print('---------------------------------------------------------')
@@ -9,11 +11,11 @@ def print_info():
     print('5. Close a program.')
     print('-------------------------Select:-------------------------')
 
-def print_pets(pets):
+def print_pets():
     for pet in pets:
         print(f'{pet['id']}. Name: {pet['name']}. Pet species: {pet['species']}. Birth year: {pet['birth_year']}.')
 
-def pet_adding(pets, id_counter):
+def pet_adding():
     print('Adding new pet.')
     print('Type name:')
     name = input()
@@ -21,6 +23,7 @@ def pet_adding(pets, id_counter):
     species = input()
     print("Type birth year:")
     birth_year = int(input())  # MUST BE INT FOR NUM = NUM. if without int: text - text
+    global id_counter # global - reference for counting
     id_counter += 1
     pet = {
         'id': id_counter,
@@ -30,7 +33,7 @@ def pet_adding(pets, id_counter):
     }
     pets.append(pet)
     return id_counter
-def pets_managing(pets):
+def pets_managing():
     print('My pets managing')
     print('Enter a pet ID to manage the selected pet.')
     edit_id = input()
@@ -44,7 +47,7 @@ def pets_managing(pets):
             print("Type birth year:")
             pet['birth_year'] = int(input())
 
-def pets_remove(pets):
+def pets_remove():
     print('Delete my pet.')
     print('Enter a pet ID to manage the selected pet.')
     del_id = input()

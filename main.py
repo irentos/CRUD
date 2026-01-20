@@ -1,19 +1,18 @@
-from file_CRUD import *
-
+from db_CRUD import *
 pets = load_pets()
-id_counter = 5
+
 while True:
     print_info()
     answer = input()
     match answer:
         case '1':
-            print_pets(pets)
+            print_pets()
         case '2':
-            id_counter = pet_adding(pets, id_counter)
+            pet_adding()
         case '3':
-           pets_managing(pets)
+           pets_managing()
         case '4':
-            pets_remove(pets)
+            pets_remove()
         case '5':
             print('Close a program.')
             break

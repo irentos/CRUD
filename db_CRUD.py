@@ -7,6 +7,7 @@ DB_CONFIG = {
     'database':'pets'
 }
 headers = ['id','name','species','birth_year']
+
 def get_conn():
     return mysql.connector.connect(**DB_CONFIG)
 
@@ -35,12 +36,12 @@ def print_info():
     print('5. Close a program.')
     print('-------------------------Select:-------------------------')
 
-def print_pets(pets):
+def print_pets():
     pets = load_pets()
     for pet in pets:
         print(f'{pet['id']}. Name: {pet['name']}. Pet species: {pet['species']}. Birth year: {pet['birth_year']}.')
 
-def pet_adding(pets, id_counter):
+def pet_adding():
     print('Adding new pet.')
     print('Type name:')
     name = input()
@@ -50,13 +51,13 @@ def pet_adding(pets, id_counter):
     birth_year = int(input())  # MUST BE INT FOR NUM = NUM. if without int: text - text
     conn= get_conn()
     cur = conn.cursor()
-    cur.execute(f'INSERT INTO my_pets(name, species, birth_year) VALUES(%s,%s,%s)', (name,species,birth_year))
+    cur.execute(f'INSERT INTO my_pets(name, species, birth_year) VALUES(%s,%s,%s)',
+                (name,species,birth_year))
     conn.commit()
     cur.close()
     conn.close()
-    return id_counter
 
-def pets_managing(pets):
+def pets_managing():
     print('My pets managing')
     print('Enter a pet ID to manage the selected pet.')
     edit_id = input()
@@ -84,7 +85,7 @@ def pets_managing(pets):
     else:
         print("No ID found")
 
-def pets_remove(pets):
+def pets_remove():
     print('Delete my pet.')
     print('Enter a pet ID to manage the selected pet.')
     del_id = input()
